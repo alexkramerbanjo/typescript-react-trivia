@@ -39,7 +39,7 @@ const App: React.FC = () => {
   );
   const getQuestions = async () => {
     try {
-      const res = await fetch("/api");
+      const res = await fetch("/api/questions");
       const data: GameResponse = await res.json();
       setQuestions(data.response);
     } catch (err) {
