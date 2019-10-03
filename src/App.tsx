@@ -2,34 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import HomeScreen from "./HomeScreen";
 import Game from "./Game";
-
-interface GameResponse {
-  response_code: number;
-  response: Array<Question>;
-}
-
-// interface GameState {
-//   questions?: Array<Question>;
-//   index?: number;
-//   completed?: boolean;
-//   totalScore?: number;
-// }
-
-// const initialGameState = {
-//   questions: null,
-//   index: null,
-//   completed: null,
-//   totalScore: null
-// };
-
-export interface Question {
-  category: string;
-  type: string;
-  difficulty: string;
-  question: string;
-  correct_answer: string;
-  incorrect_answers: Array<string>;
-}
+import { Question, GameResponse } from "./interfaces";
 
 const App: React.FC = () => {
   const [inGame, setInGame] = useState(false);
@@ -41,20 +14,21 @@ const App: React.FC = () => {
     try {
       const res = await fetch("/api/questions");
       const data: GameResponse = await res.json();
-      setQuestions(data.response);
+      console.log(data);
+      setQuestions(data.results);
     } catch (err) {
       setErr(true);
     }
   };
   useEffect(() => {
-    getQuestions();
-  });
+    if (inGame) getQuestions();
+  }, [inGame]);
   return (
     <div className="App">
       {inGame === false ? (
         <HomeScreen setInGame={setInGame}></HomeScreen>
       ) : (
-        <Game questions={questions} err={err}></Game>
+        <Game questions={questions} err={err} setInGame={setInGame}></Game>
       )}
     </div>
   );

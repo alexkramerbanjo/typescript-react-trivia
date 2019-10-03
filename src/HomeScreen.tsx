@@ -1,10 +1,7 @@
 import React from "react";
+import { GameProps } from "./interfaces";
 
-interface gameProps {
-  setInGame: (bool: boolean) => void;
-}
-
-const HomeScreen: React.FC<gameProps> = props => {
+const HomeScreen: React.FC<GameProps> = props => {
   return (
     <div>
       <div>HomeScreen</div>
