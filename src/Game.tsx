@@ -3,21 +3,18 @@ import { GameProps } from "./interfaces";
 import Results from "./Results";
 
 const Game: React.FC<GameProps> = props => {
-  console.log(props);
   const [index, setIndex] = useState(0);
   const initialPoints: number[] = [];
   const [points, setPoints] = useState(initialPoints);
   const [done, setDone] = useState(false);
   const handleClick = (bool: String) => {
-    let newPoints = points;
-    if (
-      props.questions &&
-      props.questions[index] &&
-      bool === props.questions[index].correct_answer
-    ) {
-      newPoints.push(1);
-    } else {
-      newPoints.push(0);
+    let newPoints = points.slice();
+    if (props.questions && props.questions[index]) {
+      if (bool === props.questions[index].correct_answer) {
+        newPoints.push(1);
+      } else {
+        newPoints.push(0);
+      }
     }
     setPoints(newPoints);
     const newIndex = index + 1;
@@ -43,15 +40,23 @@ const Game: React.FC<GameProps> = props => {
     return <div>Loading...</div>;
   }
   return (
-    <div>
-      <div>{props.questions[index].question}</div>
-      <div>
-        <div id="true" onClick={() => handleClick("true")}>
+    <div className="Game">
+      <div id="game-top-wrapper">
+        <div id="game-top">{props.questions[index].category}</div>
+      </div>
+      <div className="question-index-wrapper">
+        <div id="question-box">
+          <div>{props.questions[index].question}</div>
+        </div>
+        <div id="index">{index + 1} of 10</div>
+      </div>
+      <div className="true-false-wrapper">
+        <button id="true" onClick={() => handleClick("True")}>
           TRUE
-        </div>
-        <div id="false" onClick={() => handleClick("false")}>
+        </button>
+        <button id="false" onClick={() => handleClick("False")}>
           FALSE
-        </div>
+        </button>
       </div>
     </div>
   );
