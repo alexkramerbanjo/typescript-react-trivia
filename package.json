@@ -19,7 +19,7 @@
   "proxy": "http://localhost:8080",
   "scripts": {
     "start-dev": "react-scripts start",
-    "start": "react-scripts build && node server",
+    "start": "node server",
     "postinstall": "tsc",
     "build": "react-scripts build",
     "test": "react-scripts test",
