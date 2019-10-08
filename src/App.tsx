@@ -14,14 +14,17 @@ const App: React.FC = () => {
     try {
       const res = await fetch("/api/questions");
       const data: GameResponse = await res.json();
-      console.log(data);
       setQuestions(data.results);
     } catch (err) {
       setErr(true);
     }
   };
   useEffect(() => {
-    if (inGame) getQuestions();
+    if (inGame) {
+      getQuestions();
+    } else {
+      setQuestions(undefined);
+    }
   }, [inGame]);
   return (
     <div className="App">

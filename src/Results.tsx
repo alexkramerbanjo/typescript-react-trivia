@@ -6,7 +6,6 @@ const Results: React.FC<ResultsProps> = props => {
     props.setInGame(false);
   }
   const totalScore: number = props.points.reduce((ac, cur) => ac + cur);
-  console.log(props);
   return (
     <div id="results">
       You scored
